@@ -1,0 +1,12 @@
+---
+
+- name: Configure Apache redhat.
+  lineinfile:
+    dest: "/etc/httpd/conf/httpd.conf"
+    regexp: "^Listen"
+    line: "Listen {{ apache_listen_port }}"
+    state: present
+  with_items: apache_ports_configuration_items
+  notify: 
+    - restart httpd 
+  

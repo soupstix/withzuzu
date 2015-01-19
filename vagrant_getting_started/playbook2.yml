@@ -1,0 +1,14 @@
+--- 
+- 
+  hosts: localhost
+  name: "Transfer and execute a script."
+  remote_user: vagrant
+  sudo: yes
+  connection: local
+  tasks: 
+    - 
+      copy: "src=exec.sh dest=/home/test_user mode=0777"
+      name: "Transfer the script"
+    - 
+      command: "sh /home/vagrant/exec.sh"
+      name: "Execute the script"  

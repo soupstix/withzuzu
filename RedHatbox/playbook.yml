@@ -1,0 +1,51 @@
+---
+
+- hosts: all
+  remote_user: vagrant
+  sudo: yes
+
+  vars:
+    apache_listen_port: 80
+  
+  tasks:
+    - name: get system date
+      debug: "msg=\"{{ ansible_date_time.date }}\""
+
+    - name: get system os
+      debug: "msg=\"{{ ansible_os_family }}\""
+
+    - name: install apache if Debian
+      apt: name=apache2 state=latest
+      when: ansible_os_family == "Debian"
+
+#    - name: ensure apache is running if debian
+#      service: name=apache2 state=started
+#      when: ansible_os_family == "Debian"
+
+    - name: Install httpd if RedHat
+      yum: pkg=httpd state=latest
+      when: ansible_os_family == "RedHat"
+
+# Setup/install tasks.
+    - include: setup-RedHat.yml
+      when: ansible_os_family == 'RedHat'
+
+    - include: setup-Debian.yml
+      when: ansible_os_family == 'Debian'
+# handlers
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted
+    - name: restart httpd
+      service: name=httpd state=restarted
+
+# items
+#  apache_ports_configuration_items:
+#    - {
+#      regexp: "^Listen ",
+#      line: "Listen {{ apache_listen_port }}"
+#    }
+#    - {
+#      regexp: "^NameVirtualHost ",
+#      line: "NameVirtualHost *:{{ apache_listen_port }}"
+#    }

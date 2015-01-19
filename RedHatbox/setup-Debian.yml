@@ -1,0 +1,19 @@
+---
+
+- name: Configure Apache.
+  lineinfile:
+    dest: "{{ apache_server_root }}/ports.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items: apache_ports_configuration_items
+  notify: restart apache
+
+- name: Enable Apache mods.
+  file:
+    src: "/etc/apache2/mods-available/{{ item }}"
+    dest: "/etc/apache2/mods-enabled/{{ item }}"
+    state: link
+  with_items: apache_mods_enabled
+  notify: restart apache
+

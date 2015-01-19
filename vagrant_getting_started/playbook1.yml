@@ -1,0 +1,23 @@
+---
+
+  - hosts: all
+    remote_user: vagrant
+    sudo: yes   
+
+    tasks:
+    - name: ensure apache is at the latest version
+      yum: pkg=httpd state=latest
+
+    - name: ensure apache is running
+      service: name=httpd state=started
+    - name: install libselinux-python
+      yum: name=libselinux-python state=latest
+
+    - name: selinux disable
+      selinux: state=disabled
+
+    - name: iptables disable
+      service: name=iptables state=stopped
+
+    - name: create a page
+      command: /bin/touch /var/www/html/foo1.html

@@ -1,0 +1,12 @@
+--- 
+
+- hosts: localhost
+  remote_user: vagrant
+  connection: local
+ 
+  tasks:
+    - name: get system date
+      debug: "msg=\"{{ ansible_date_time.date }}\""
+    
+    - name: get system os
+      debug: "msg=\"{{ ansible_os_family }}\""
