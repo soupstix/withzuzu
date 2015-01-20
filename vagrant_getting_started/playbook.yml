@@ -7,8 +7,8 @@
   tasks:
 #    - name: curl command
 #      shell: "curlfile.sh"
-    - name: using touch
-      command: /usr/bin/touch /Users/supriyasubudhi/vagrant_getting_started/hi.txt
+#    - name: using touch
+#      command: /usr/bin/touch /Users/supriyasubudhi/vagrant_getting_started/hi.txt
 
     - name: curl command
       command: /usr/bin/curl google.com
