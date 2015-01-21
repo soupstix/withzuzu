@@ -6,4 +6,4 @@
 
   tasks:
     - name: using comm curl
-      command: /bin/sh vagrant_getting_started/curlfile.sh
+      command: /bin/sh ~/vagrant_getting_started/curlfile.sh
